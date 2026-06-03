@@ -600,6 +600,7 @@ body.owner-authed .demo-only { display: none !important; }
 body.owner-authed #portal-owner .page[data-demo-page="true"] > :not(.portal-header):not(.portal-header-row):not(.owner-live-fallback) { display: none !important; }
 body.owner-authed .owner-live-fallback { display: block !important; }
 .owner-live-fallback { display: none; }
+</style>
 </head>
 <body>
 
@@ -2200,11 +2201,10 @@ async function bootstrapSession(){
 
 function showPortal(n){
   if (n === "owner" && !appState.user && !appState.token) {
-    showPortal("public");
     openModal("login");
     return;
   }
-  document.querySelectorAll('[id^=portal-]').forEach(p=>p.style.display='none');
+  document.querySelectorAll('#portal-public,#portal-owner,#portal-vet,#portal-admin').forEach(function(p){ p.style.display = 'none'; });
   document.getElementById('portal-'+n).style.display='';
   document.body.classList.remove('portal-owner-active');
   var fab=document.getElementById('ai-fab');
