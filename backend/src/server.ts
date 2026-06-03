@@ -1,9 +1,15 @@
 import { env } from "./config/env.js";
 import { prisma } from "./db.js";
 import { app } from "./app.js";
+import { ensureSeedData } from "./lib/ensure-seed.js";
 
 const host = env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
-const server = app.listen(env.PORT, host, () => {
+const server = app.listen(env.PORT, host, async () => {
+  try {
+    await ensureSeedData();
+  } catch (error) {
+    console.warn("Auto-seed skipped:", error);
+  }
   const url =
     env.RAILWAY_PUBLIC_DOMAIN
       ? `https://${env.RAILWAY_PUBLIC_DOMAIN}`

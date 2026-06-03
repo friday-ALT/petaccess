@@ -600,6 +600,9 @@ body.owner-authed .demo-only { display: none !important; }
 body.owner-authed #portal-owner .page[data-demo-page="true"] > :not(.portal-header):not(.portal-header-row):not(.owner-live-fallback) { display: none !important; }
 body.owner-authed .owner-live-fallback { display: block !important; }
 .owner-live-fallback { display: none; }
+.vet-live-note { display: none; }
+body.vet-authed .vet-demo-only { display: none !important; }
+body.vet-authed .vet-live-note { display: block !important; }
 </style>
 </head>
 <body>
@@ -882,12 +885,7 @@ body.owner-authed .owner-live-fallback { display: block !important; }
       <button class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div class="section"><div class="section-inner"><div class="clinics-grid">
-    <div class="clinic-card"><div class="clinic-header"><div class="clinic-avatar">SV</div><div><div class="clinic-name">Sevenoaks Vets</div><div class="clinic-location">📍 London Road, Sevenoaks, TN13</div><div class="clinic-rating"><span class="clinic-rating-stars">★★★★★</span> <span style="color:var(--slate-600)">4.9 (214 reviews)</span></div></div></div><div class="clinic-tags"><span class="clinic-tag">Dogs</span><span class="clinic-tag">Cats</span><span class="clinic-tag">Rabbits</span><span class="clinic-tag">24hr Emergency</span></div><div class="clinic-meta"><span>4 vets</span><span class="status-open">● Open Now</span><button class="btn btn-primary btn-sm" onclick="openModal('book-appt')">Book</button></div></div>
-    <div class="clinic-card"><div class="clinic-header"><div class="clinic-avatar" style="background:var(--blue)">TA</div><div><div class="clinic-name">Tonbridge Animal Clinic</div><div class="clinic-location">📍 High Street, Tonbridge, TN9</div><div class="clinic-rating"><span class="clinic-rating-stars">★★★★★</span> <span style="color:var(--slate-600)">4.8 (381 reviews)</span></div></div></div><div class="clinic-tags"><span class="clinic-tag">All Species</span><span class="clinic-tag">Exotic</span><span class="clinic-tag">Specialist</span></div><div class="clinic-meta"><span>6 vets</span><span class="status-open">● Open Now</span><button class="btn btn-primary btn-sm" onclick="openModal('book-appt')">Book</button></div></div>
-    <div class="clinic-card"><div class="clinic-header"><div class="clinic-avatar" style="background:#7C3AED">MP</div><div><div class="clinic-name">Maidstone Pet Care Centre</div><div class="clinic-location">📍 King Street, Maidstone, ME14</div><div class="clinic-rating"><span class="clinic-rating-stars">★★★★☆</span> <span style="color:var(--slate-600)">4.7 (156 reviews)</span></div></div></div><div class="clinic-tags"><span class="clinic-tag">Dogs</span><span class="clinic-tag">Cats</span><span class="clinic-tag">Exotic</span></div><div class="clinic-meta"><span>3 vets</span><span style="color:var(--amber);font-weight:600">Closes 5pm</span><button class="btn btn-primary btn-sm" onclick="openModal('book-appt')">Book</button></div></div>
-    <div class="clinic-card"><div class="clinic-header"><div class="clinic-avatar" style="background:var(--slate-500)">WV</div><div><div class="clinic-name">Westway Vets Bromley</div><div class="clinic-location">📍 Bromley High St, BR1</div><div class="clinic-rating"><span class="clinic-rating-stars">★★★★☆</span> <span style="color:var(--slate-600)">4.6 (89 reviews)</span></div></div></div><div class="clinic-tags"><span class="clinic-tag">Dogs</span><span class="clinic-tag">Cats</span><span class="clinic-tag">Small Animals</span></div><div class="clinic-meta"><span>2 vets</span><span class="status-closed">● Closed</span><button class="btn btn-secondary btn-sm">Details</button></div></div>
-  </div></div></div>
+  <div class="section"><div class="section-inner"><div class="clinics-grid" id="public-clinics-grid"></div></div></div>
 </div>
 
 <!-- FAQ PAGE -->
@@ -1036,18 +1034,22 @@ body.owner-authed .owner-live-fallback { display: block !important; }
 
 <!-- MEDICAL RECORDS -->
 <div id="owner-records" class="page" data-demo-page="true">
-  <div class="portal-header portal-header-row"><div><h1>Medical Records</h1><p>Complete health history for all your pets.</p></div><button class="btn btn-secondary">⬇ Export PDF</button></div>
+  <div class="portal-header portal-header-row"><div><h1>Medical Records</h1><p id="owner-records-subtitle">Complete health history for all your pets.</p></div></div>
+  <div class="demo-only">
   <div class="filter-bar"><select class="form-select" style="width:auto"><option>All Pets</option><option>Buddy</option><option>Luna</option><option>Pepper</option></select><select class="form-select" style="width:auto"><option>All Types</option><option>Consultations</option><option>Lab Results</option><option>Vaccinations</option><option>Prescriptions</option></select><input placeholder="Search records..." style="max-width:260px"></div>
   <div class="card"><div class="table-wrapper"><table>
     <thead><tr><th>Date</th><th>Pet</th><th>Type</th><th>Description</th><th>Clinician</th><th>Action</th></tr></thead>
     <tbody>
       <tr><td>30 May 2025</td><td><span class="badge badge-teal">Buddy</span></td><td><span class="badge badge-blue">Lab Result</span></td><td>Complete blood count + biochemistry panel</td><td>Dr. Walsh</td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
       <tr><td>14 May 2025</td><td><span class="badge badge-teal">Buddy</span></td><td><span class="badge badge-slate">Consultation</span></td><td>Follow-up: right hip joint stiffness</td><td>Dr. Walsh</td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-      <tr><td>2 Apr 2025</td><td><span class="badge badge-green">Luna</span></td><td><span class="badge badge-green">Vaccination</span></td><td>Feline herpesvirus + calicivirus booster</td><td>Dr. Reed</td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-      <tr><td>18 Mar 2025</td><td><span class="badge badge-teal">Buddy</span></td><td><span class="badge badge-amber">Prescription</span></td><td>Metacam 1.5mg/ml oral suspension — 30 day</td><td>Dr. Walsh</td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-      <tr><td>5 Jan 2025</td><td><span class="badge badge-teal">Buddy</span></td><td><span class="badge badge-blue">Imaging</span></td><td>Right hip X-ray — mild osteoarthritis noted</td><td>Dr. Walsh</td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
     </tbody>
   </table></div></div>
+  </div>
+  <div class="card owner-live-fallback"><div class="table-wrapper"><table>
+    <thead><tr><th>Date</th><th>Pet</th><th>Type</th><th>Description</th><th>Clinic</th><th>Clinician</th></tr></thead>
+    <tbody id="owner-records-body"></tbody>
+  </table></div>
+  <div id="owner-records-empty" class="empty-state" style="padding:24px;display:none"><p>No medical records yet. Records appear here when your vet adds consultation notes after appointments.</p></div></div>
 </div>
 
 <!-- PRESCRIPTIONS -->
@@ -1298,28 +1300,19 @@ body.owner-authed .owner-live-fallback { display: block !important; }
 <!-- VET DASHBOARD -->
 <div id="v-dashboard" class="page active">
   <div class="portal-header portal-header-row">
-    <div><h1>Good morning, Dr. Walsh 🩺</h1><p>Sevenoaks Vets · Monday, 2 June 2025</p></div>
+    <div><h1 id="vet-dashboard-title">Good morning 🩺</h1><p id="vet-dashboard-sub">Loading clinic...</p></div>
     <button class="btn btn-primary" onclick="openModal('vet-note')">+ Add Consultation</button>
   </div>
-  <div class="alert-banner alert-red"><span class="alert-icon">🔴</span><div class="alert-content"><strong>Urgent:</strong> Rex Parker (German Shepherd) presenting with acute abdominal distress — 10:30am today.</div></div>
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-card-label">Today's Appointments</div><div class="stat-card-value">8</div><span class="stat-card-delta delta-neutral">2 remaining</span></div>
-    <div class="stat-card"><div class="stat-card-label">Pending Prescriptions</div><div class="stat-card-value">3</div><span class="stat-card-delta delta-down">Action needed</span></div>
-    <div class="stat-card"><div class="stat-card-label">Active Patients</div><div class="stat-card-value">214</div><span class="stat-card-delta delta-up">+4 this week</span></div>
-    <div class="stat-card"><div class="stat-card-label">Unread Messages</div><div class="stat-card-value">7</div><span class="stat-card-delta delta-down">3 from owners</span></div>
-    <div class="stat-card"><div class="stat-card-label">May Revenue</div><div class="stat-card-value" style="font-size:1.4rem">£28K</div><span class="stat-card-delta delta-up">↑ 9% vs Apr</span></div>
+    <div class="stat-card"><div class="stat-card-label">Today's Appointments</div><div class="stat-card-value" id="vet-stat-today">0</div><span class="stat-card-delta delta-neutral">At your clinic</span></div>
+    <div class="stat-card"><div class="stat-card-label">Pending Requests</div><div class="stat-card-value" id="vet-stat-pending">0</div><span class="stat-card-delta delta-down">Needs action</span></div>
+    <div class="stat-card"><div class="stat-card-label">Active Patients</div><div class="stat-card-value" id="vet-stat-patients">0</div><span class="stat-card-delta delta-up">From bookings</span></div>
   </div>
-  <div class="grid-2" style="gap:20px">
-    <div class="card">
-      <div class="card-title" style="justify-content:space-between"><span>📅 Today's Schedule</span><button class="btn btn-ghost btn-sm" onclick="vetPage('v-schedule',null)">Full week →</button></div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--teal-pale);border-radius:var(--radius-sm);border-left:3px solid var(--teal)"><span style="font-size:.72rem;font-weight:700;color:var(--teal);width:40px;flex-shrink:0">9:30</span><div style="flex:1"><div style="font-size:.83rem;font-weight:700">Felix Thomson — Post-op check</div><div style="font-size:.72rem;color:var(--slate-500)">Golden Retriever · James Thomson</div></div><span class="badge badge-teal">Done</span></div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--red-pale);border-radius:var(--radius-sm);border-left:3px solid var(--red)"><span style="font-size:.72rem;font-weight:700;color:var(--red);width:40px;flex-shrink:0">10:30</span><div style="flex:1"><div style="font-size:.83rem;font-weight:700">Rex Parker — 🔴 URGENT</div><div style="font-size:.72rem;color:var(--slate-500)">German Shepherd · Tom Parker</div></div><span class="badge badge-red">Urgent</span></div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--teal-pale);border-radius:var(--radius-sm);border-left:3px solid var(--teal)"><span style="font-size:.72rem;font-weight:700;color:var(--teal);width:40px;flex-shrink:0">11:30</span><div style="flex:1"><div style="font-size:.83rem;font-weight:700">Buddy Mitchell — Joint follow-up</div><div style="font-size:.72rem;color:var(--slate-500)">Labrador · Sarah Mitchell</div></div><span class="badge badge-amber">Next</span></div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--teal-pale);border-radius:var(--radius-sm);border-left:3px solid var(--teal)"><span style="font-size:.72rem;font-weight:700;color:var(--teal);width:40px;flex-shrink:0">14:00</span><div style="flex:1"><div style="font-size:.83rem;font-weight:700">Luna Fairfax — Vaccination</div><div style="font-size:.72rem;color:var(--slate-500)">Siamese Cat · Emma Fairfax</div></div><span class="badge badge-slate">Upcoming</span></div>
-      </div>
-    </div>
-    <div>
+  <div class="card">
+    <div class="card-title" style="justify-content:space-between"><span>📅 Today's Schedule</span><button class="btn btn-ghost btn-sm" onclick="vetPage('v-schedule',null)">Full schedule →</button></div>
+    <div id="vet-today-list" style="display:flex;flex-direction:column;gap:6px"><div class="empty-state" style="padding:16px"><p>No appointments yet today.</p></div></div>
+  </div>
+  <div class="vet-demo-only">
       <div class="card mb-16">
         <div class="card-title" style="justify-content:space-between"><span>💊 Pending Prescriptions</span><span class="badge badge-red">3 awaiting</span></div>
         <div style="display:flex;flex-direction:column;gap:10px">
@@ -1338,52 +1331,33 @@ body.owner-authed .owner-live-fallback { display: block !important; }
         </div>
       </div>
     </div>
-  </div>
 </div>
 
 <!-- VET SCHEDULE -->
 <div id="v-schedule" class="page">
-  <div class="portal-header portal-header-row"><div><h1>Weekly Schedule</h1><p>Week of 2 June 2025</p></div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm">← Prev</button><button class="btn btn-ghost btn-sm">Next →</button><button class="btn btn-primary btn-sm">+ Block Time</button></div></div>
-  <div class="card" style="padding:0;overflow:hidden">
-    <div style="display:grid;grid-template-columns:60px repeat(5,1fr)">
-      <div style="background:var(--slate-50);padding:10px;border-bottom:2px solid var(--slate-200);border-right:1px solid var(--slate-200)"></div>
-      <div style="background:var(--slate-50);padding:10px;text-align:center;font-size:.8rem;font-weight:700;color:var(--slate-700);border-bottom:2px solid var(--slate-200);border-right:1px solid var(--slate-200)">Mon 2</div>
-      <div style="background:var(--slate-50);padding:10px;text-align:center;font-size:.8rem;font-weight:700;color:var(--slate-700);border-bottom:2px solid var(--slate-200);border-right:1px solid var(--slate-200)">Tue 3</div>
-      <div style="background:var(--slate-50);padding:10px;text-align:center;font-size:.8rem;font-weight:700;color:var(--teal);border-bottom:2px solid var(--slate-200);border-right:1px solid var(--slate-200)">Wed 4 ●</div>
-      <div style="background:var(--slate-50);padding:10px;text-align:center;font-size:.8rem;font-weight:700;color:var(--slate-700);border-bottom:2px solid var(--slate-200);border-right:1px solid var(--slate-200)">Thu 5</div>
-      <div style="background:var(--slate-50);padding:10px;text-align:center;font-size:.8rem;font-weight:700;color:var(--slate-700);border-bottom:2px solid var(--slate-200)">Fri 6</div>
-      <div style="padding:6px;font-size:.68rem;font-weight:700;color:var(--slate-400);text-align:right;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200);background:var(--slate-50)">9:30</div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt"><div class="sch-appt-name">Felix T.</div><div>Post-op</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt sch-appt-blue"><div class="sch-appt-name">Bella H.</div><div>Consult</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"></div><div style="padding:4px;border-bottom:1px solid var(--slate-100)"><div class="sch-appt"><div class="sch-appt-name">Rosie T.</div><div>Vaccination</div></div></div>
-      <div style="padding:6px;font-size:.68rem;font-weight:700;color:var(--slate-400);text-align:right;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200);background:var(--slate-50)">10:30</div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt" style="background:var(--red-pale);border-left-color:var(--red);color:#991B1B"><div class="sch-appt-name">Rex P. 🔴</div><div>Emergency</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt"><div class="sch-appt-name">Buddy M.</div><div>Annual check</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt sch-appt-blue"><div class="sch-appt-name">Oscar P.</div><div>Surgery consult</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100)"></div>
-      <div style="padding:6px;font-size:.68rem;font-weight:700;color:var(--slate-400);text-align:right;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200);background:var(--slate-50)">11:30</div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt sch-appt-amber"><div class="sch-appt-name">Buddy M.</div><div>Follow-up</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"><div class="sch-appt sch-appt-blue"><div class="sch-appt-name">Charlie S.</div><div>Vaccination</div></div></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"></div><div style="padding:4px;border-bottom:1px solid var(--slate-100);border-right:1px solid var(--slate-200)"></div><div style="padding:4px;border-bottom:1px solid var(--slate-100)"><div class="sch-appt"><div class="sch-appt-name">Willow A.</div><div>Consult</div></div></div>
-      <div style="padding:6px;font-size:.68rem;font-weight:700;color:var(--slate-400);text-align:right;border-right:1px solid var(--slate-200);background:var(--slate-50)">14:00</div><div style="padding:4px;border-right:1px solid var(--slate-200)"><div class="sch-appt"><div class="sch-appt-name">Luna F.</div><div>Vaccination</div></div></div><div style="padding:4px;border-right:1px solid var(--slate-200)"><div class="sch-appt"><div class="sch-appt-name">Nala K.</div><div>Health check</div></div></div><div style="padding:4px;border-right:1px solid var(--slate-200)"><div class="sch-appt sch-appt-blue"><div class="sch-appt-name">Max J.</div><div>Consult</div></div></div><div style="padding:4px;border-right:1px solid var(--slate-200)"><div class="sch-appt sch-appt-amber"><div class="sch-appt-name">Simba R.</div><div>Dental</div></div></div><div style="padding:4px"></div>
-    </div>
-  </div>
+  <div class="portal-header portal-header-row"><div><h1>Clinic Schedule</h1><p id="vet-schedule-sub">All appointments at your practice</p></div></div>
+  <div class="appt-list" id="vet-schedule-list"></div>
 </div>
 
 <!-- VET PATIENTS -->
 <div id="v-patients" class="page">
-  <div class="portal-header portal-header-row"><div><h1>Patient Records</h1><p>214 registered patients.</p></div><button class="btn btn-primary">+ New Patient</button></div>
-  <div class="filter-bar"><input placeholder="Search by patient or owner..." style="max-width:300px"><select class="form-select" style="width:auto"><option>All Species</option><option>Dogs</option><option>Cats</option><option>Rabbits</option></select></div>
+  <div class="portal-header portal-header-row"><div><h1>Patient Records</h1><p id="vet-patients-sub">Patients who have booked at your clinic</p></div></div>
   <div class="card"><div class="table-wrapper"><table>
     <thead><tr><th>Patient</th><th>Breed</th><th>Owner</th><th>Last Visit</th><th>Status</th><th>Actions</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Rex Parker</strong></td><td>German Shepherd, 4y</td><td>Tom Parker</td><td>Today</td><td><span class="badge badge-red">Urgent</span></td><td><div class="action-menu"><button class="btn btn-ghost btn-sm">Open</button><button class="btn btn-primary btn-sm" onclick="openModal('vet-note')">+ Note</button></div></td></tr>
-      <tr><td><strong>Buddy Mitchell</strong></td><td>Labrador Retriever, 6y</td><td>Sarah Mitchell</td><td>14 May</td><td><span class="badge badge-amber">Vacc due</span></td><td><div class="action-menu"><button class="btn btn-ghost btn-sm">Open</button><button class="btn btn-primary btn-sm" onclick="openModal('vet-note')">+ Note</button></div></td></tr>
-      <tr><td><strong>Luna Mitchell</strong></td><td>Ragdoll Cat, 3y</td><td>Sarah Mitchell</td><td>2 Apr</td><td><span class="badge badge-green">Up to date</span></td><td><div class="action-menu"><button class="btn btn-ghost btn-sm">Open</button><button class="btn btn-primary btn-sm" onclick="openModal('vet-note')">+ Note</button></div></td></tr>
-      <tr><td><strong>Felix Thomson</strong></td><td>Golden Retriever, 2y</td><td>James Thomson</td><td>Today</td><td><span class="badge badge-teal">Post-op</span></td><td><div class="action-menu"><button class="btn btn-ghost btn-sm">Open</button><button class="btn btn-primary btn-sm" onclick="openModal('vet-note')">+ Note</button></div></td></tr>
-      <tr><td><strong>Mochi Patel</strong></td><td>Persian Cat, 4y</td><td>Priya Patel</td><td>Today</td><td><span class="badge badge-green">Up to date</span></td><td><div class="action-menu"><button class="btn btn-ghost btn-sm">Open</button><button class="btn btn-primary btn-sm" onclick="openModal('vet-note')">+ Note</button></div></td></tr>
-    </tbody>
+    <tbody id="vet-patients-body"></tbody>
   </table></div></div>
 </div>
+
 
 <!-- VET PRESCRIPTIONS -->
 <div id="v-prescriptions" class="page">
   <div class="portal-header"><h1>Prescription Management</h1><p>Review and process repeat prescription requests.</p></div>
-  <div class="appt-list">
+  <div class="vet-demo-only appt-list">
     <div class="appt-item" style="border-left:3px solid var(--amber)"><div style="width:48px;height:48px;background:var(--amber-pale);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">💊</div><div class="appt-info"><div class="appt-title">Metacam 1.5mg/ml — Buddy Mitchell (Labrador)</div><div class="appt-meta"><span>👩 Sarah Mitchell</span><span>📅 31 May 2025</span><span>Repeat · 30-day supply</span></div></div><div class="appt-actions"><button class="btn btn-primary btn-sm" onclick="alert('Approved! Sarah Mitchell has been notified.')">✓ Approve</button><button class="btn btn-danger btn-sm">✗ Decline</button><button class="btn btn-ghost btn-sm">Notes</button></div></div>
     <div class="appt-item" style="border-left:3px solid var(--amber)"><div style="width:48px;height:48px;background:var(--amber-pale);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">💊</div><div class="appt-info"><div class="appt-title">Prednisolone 5mg — Rex Parker (German Shepherd)</div><div class="appt-meta"><span>👨 Tom Parker</span><span>📅 30 May 2025</span><span>Review clinical notes first</span></div></div><div class="appt-actions"><button class="btn btn-primary btn-sm">✓ Approve</button><button class="btn btn-danger btn-sm">✗ Decline</button><button class="btn btn-ghost btn-sm">Notes</button></div></div>
     <div class="appt-item" style="border-left:3px solid var(--amber)"><div style="width:48px;height:48px;background:var(--amber-pale);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">💊</div><div class="appt-info"><div class="appt-title">Advocate Spot-On — Mochi Patel (Persian Cat)</div><div class="appt-meta"><span>👩 Priya Patel</span><span>📅 29 May 2025</span><span>Monthly routine treatment</span></div></div><div class="appt-actions"><button class="btn btn-primary btn-sm">✓ Approve</button><button class="btn btn-danger btn-sm">✗ Decline</button><button class="btn btn-ghost btn-sm">Notes</button></div></div>
   </div>
+  <div class="empty-state vet-live-note" style="padding:32px"><p><strong>Coming soon</strong> — prescription requests will sync here when your clinic enables repeats.</p></div>
 </div>
 
 <!-- VET MESSAGES -->
@@ -1573,7 +1547,7 @@ body.owner-authed .owner-live-fallback { display: block !important; }
   <div class="modal">
     <div class="modal-header"><h3>Create your free account</h3><button class="modal-close" onclick="closeModal('signup')">×</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">I am a...</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn btn-secondary" type="button" style="justify-content:center;padding:12px;background:var(--teal-pale);border-color:var(--teal)">🐾 Pet Owner</button><button class="btn btn-secondary" type="button" style="justify-content:center;padding:12px">🩺 Veterinarian</button></div></div>
+      <div class="form-group"><label class="form-label">I am a...</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button id="signup-role-owner" class="btn btn-secondary signup-role-btn active" type="button" style="justify-content:center;padding:12px;background:var(--teal-pale);border-color:var(--teal)" onclick="setSignupRole('OWNER')">🐾 Pet Owner</button><button id="signup-role-vet" class="btn btn-secondary signup-role-btn" type="button" style="justify-content:center;padding:12px" onclick="setSignupRole('VET')">🩺 Veterinarian</button></div><input type="hidden" id="signup-role" value="OWNER"></div>
       <div class="form-row"><div class="form-group"><label class="form-label">First Name</label><input id="signup-firstname" class="form-input" placeholder="Sarah"></div><div class="form-group"><label class="form-label">Last Name</label><input id="signup-lastname" class="form-input" placeholder="Mitchell"></div></div>
       <div class="form-group"><label class="form-label">Email</label><input id="signup-email" class="form-input" type="email" placeholder="sarah@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input id="signup-password" class="form-input" type="password" placeholder="Min. 8 characters"></div>
@@ -1590,7 +1564,7 @@ body.owner-authed .owner-live-fallback { display: block !important; }
       <div class="form-group"><label class="form-label">Email</label><input id="login-email" class="form-input" type="email" placeholder="your@email.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input id="login-password" class="form-input" type="password" placeholder="Your password"></div>
       <div style="display:flex;justify-content:flex-end;margin-bottom:16px"><a href="#" style="font-size:.82rem;color:var(--teal)">Forgot password?</a></div>
-      <div style="background:var(--slate-100);border-radius:var(--radius-sm);padding:14px;font-size:.82rem;color:var(--slate-600)">Sign in with your account to see <strong>your</strong> pets and appointments. Demo content (Sarah Mitchell) is only for the public marketing tour — not shown after login.</div>
+      <div style="background:var(--slate-100);border-radius:var(--radius-sm);padding:14px;font-size:.82rem;color:var(--slate-600)">Sign in with <strong>your</strong> account. Demo vet for pitches: <strong>dr.walsh@sevenoaksvets.co.uk</strong> / Password123!</div>
     </div>
     <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('login')">Cancel</button><button class="btn btn-primary" onclick="handleLogin()">Sign In</button></div>
   </div>
@@ -1602,7 +1576,7 @@ body.owner-authed .owner-live-fallback { display: block !important; }
     <div class="modal-body">
       <div class="form-group"><label class="form-label">Select Pet</label><select id="book-pet-id" class="form-select"><option>Buddy (Labrador)</option><option>Luna (Ragdoll Cat)</option><option>Pepper (Holland Lop)</option></select></div>
       <div class="form-group"><label class="form-label">Appointment Type</label><select id="book-reason" class="form-select"><option>General Consultation</option><option>Annual Vaccination</option><option>Follow-up</option><option>Annual Health Check</option><option>Emergency</option></select></div>
-      <div class="form-group"><label class="form-label">Clinic</label><select id="book-clinic" class="form-select"><option>Sevenoaks Vets</option><option>Tonbridge Animal Clinic</option></select></div>
+      <div class="form-group"><label class="form-label">Clinic</label><select id="book-clinic" class="form-select"><option value="">Loading clinics...</option></select></div>
       <div class="form-row"><div class="form-group"><label class="form-label">Date</label><input id="book-date" class="form-input" type="date"></div><div class="form-group"><label class="form-label">Time</label><select id="book-time" class="form-select"><option>09:00</option><option>09:30</option><option>10:00</option><option>14:00</option></select></div></div>
       <div class="form-group"><label class="form-label">Notes for vet</label><textarea id="book-notes" class="form-textarea" placeholder="Describe any symptoms or concerns..."></textarea></div>
     </div>
@@ -1709,13 +1683,28 @@ body.owner-authed .owner-live-fallback { display: block !important; }
   <div class="modal" style="max-width:580px">
     <div class="modal-header"><h3>New Consultation Note</h3><button class="modal-close" onclick="closeModal('vet-note')">×</button></div>
     <div class="modal-body">
-      <div class="form-row"><div class="form-group"><label class="form-label">Patient</label><select class="form-select"><option>Buddy Mitchell (Labrador)</option><option>Rex Parker (GSD)</option><option>Luna Mitchell (Ragdoll)</option></select></div><div class="form-group"><label class="form-label">Date</label><input class="form-input" type="date"></div></div>
-      <div class="form-group"><label class="form-label">Type</label><select class="form-select"><option>Routine Consultation</option><option>Vaccination</option><option>Follow-up</option><option>Emergency</option><option>Annual Health Check</option></select></div>
-      <div class="form-group"><label class="form-label">Chief Complaint</label><textarea class="form-textarea" placeholder="Owner reports... Pet presenting with..."></textarea></div>
-      <div class="form-group"><label class="form-label">Clinical Findings</label><textarea class="form-textarea" placeholder="Temperature, weight, examination findings..."></textarea></div>
-      <div class="form-group"><label class="form-label">Diagnosis & Treatment Plan</label><textarea class="form-textarea" placeholder="Diagnosis, medications, follow-up advice..."></textarea></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Patient</label><select id="vet-note-pet-id" class="form-select"><option value="">Select patient...</option></select></div><div class="form-group"><label class="form-label">Date</label><input id="vet-note-date" class="form-input" type="date"></div></div>
+      <div class="form-group"><label class="form-label">Type</label><select id="vet-note-type" class="form-select"><option>Consultation</option><option>Vaccination</option><option>Follow-up</option><option>Emergency</option><option>Annual Health Check</option><option>Lab Result</option></select></div>
+      <div class="form-group"><label class="form-label">Title</label><input id="vet-note-title" class="form-input" placeholder="e.g. Annual health check — Buddy"></div>
+      <div class="form-group"><label class="form-label">Clinical notes</label><textarea id="vet-note-description" class="form-textarea" placeholder="Examination findings, diagnosis, treatment plan..."></textarea></div>
     </div>
-    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('vet-note')">Cancel</button><button class="btn btn-primary" onclick="closeModal('vet-note');alert('Consultation note saved!')">Save Note ✓</button></div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('vet-note')">Cancel</button><button class="btn btn-primary" onclick="handleVetNoteSave()">Save Note ✓</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-clinic-apply">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header"><h3>Register your practice</h3><button class="modal-close" onclick="closeModal('clinic-apply')">×</button></div>
+    <div class="modal-body">
+      <p style="font-size:.85rem;color:var(--slate-500);margin-bottom:16px">Submit your clinic details. We'll review and activate your practice on Pet Access (usually within 48 hours).</p>
+      <div class="form-group"><label class="form-label">Practice name</label><input id="apply-clinic-name" class="form-input" placeholder="Sevenoaks Vets"></div>
+      <div class="form-group"><label class="form-label">Address</label><input id="apply-clinic-address" class="form-input" placeholder="London Road"></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Town / city</label><input id="apply-clinic-city" class="form-input" placeholder="Sevenoaks"></div><div class="form-group"><label class="form-label">Postcode</label><input id="apply-clinic-postcode" class="form-input" placeholder="TN13"></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Phone</label><input id="apply-clinic-phone" class="form-input" placeholder="01732 450500"></div><div class="form-group"><label class="form-label">Email</label><input id="apply-clinic-email" class="form-input" type="email" placeholder="hello@practice.co.uk"></div></div>
+      <div class="form-group"><label class="form-label">Services (comma-separated)</label><input id="apply-clinic-services" class="form-input" placeholder="Dogs, Cats, Emergency"></div>
+      <label style="display:flex;gap:8px;align-items:center;font-size:.85rem"><input id="apply-clinic-emergency" type="checkbox"> 24-hour emergency service</label>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('clinic-apply')">Later</button><button class="btn btn-primary" onclick="handleClinicApply()">Submit application →</button></div>
   </div>
 </div>
 
@@ -1731,8 +1720,354 @@ const appState = {
   token: localStorage.getItem("petAccessToken") || "",
   user: null,
   pets: [],
-  appointments: []
+  appointments: [],
+  records: [],
+  clinics: [],
+  vet: {
+    clinic: null,
+    appointments: [],
+    patients: [],
+    stats: { todayAppointments: 0, pendingAppointments: 0, activePatients: 0 }
+  }
 };
+
+function normalizeAppointment(a){
+  if (!a) return a;
+  return Object.assign({}, a, {
+    clinicName: a.clinicName || (a.clinic && a.clinic.name) || "Clinic"
+  });
+}
+
+function ownerName(owner){
+  if (!owner) return "Owner";
+  return [owner.firstName, owner.lastName].filter(Boolean).join(" ") || "Owner";
+}
+
+function vetName(vet){
+  if (!vet) return "—";
+  return "Dr. " + (vet.lastName || vet.firstName || "Vet");
+}
+
+function isToday(iso){
+  var d = new Date(iso);
+  var n = new Date();
+  return d.getDate() === n.getDate() && d.getMonth() === n.getMonth() && d.getFullYear() === n.getFullYear();
+}
+
+function statusBadgeClass(status){
+  if (status === "CONFIRMED") return "badge-teal";
+  if (status === "COMPLETED") return "badge-green";
+  if (status === "CANCELLED") return "badge-slate";
+  return "badge-amber";
+}
+
+function setSignupRole(role){
+  var input = document.getElementById("signup-role");
+  if (input) input.value = role;
+  document.querySelectorAll(".signup-role-btn").forEach(function(btn){
+    btn.classList.remove("active");
+    btn.style.background = "";
+    btn.style.borderColor = "";
+  });
+  var active = document.getElementById(role === "VET" ? "signup-role-vet" : "signup-role-owner");
+  if (active) {
+    active.classList.add("active");
+    active.style.background = "var(--teal-pale)";
+    active.style.borderColor = "var(--teal)";
+  }
+}
+
+async function loadClinics(){
+  try {
+    var data = await apiRequest("/clinics");
+    appState.clinics = data.clinics || [];
+    renderPublicClinicsGrid();
+    populateClinicSelects();
+  } catch (error) {
+    console.warn("Could not load clinics:", error);
+  }
+}
+
+function renderPublicClinicsGrid(){
+  var grid = document.getElementById("public-clinics-grid");
+  if (!grid) return;
+  if (!appState.clinics.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:40px"><p>Partner clinics loading… Sign in to book once clinics are available.</p></div>';
+    return;
+  }
+  grid.innerHTML = appState.clinics.map(function(c){
+    var services = (c.services || "").split(",").filter(Boolean).slice(0, 3).map(function(s){
+      return '<span class="badge badge-teal">' + s.trim() + '</span>';
+    }).join(" ");
+    var emergency = c.emergency24h ? '<span class="badge badge-red">24hr Emergency</span>' : "";
+    return '<div class="clinic-card"><div class="clinic-card-header"><div><div class="clinic-name">' + c.name + '</div><div class="clinic-location">📍 ' + c.city + ', ' + c.postcode + '</div></div>' + emergency + '</div><div class="clinic-card-body"><div style="font-size:.82rem;color:var(--slate-500);margin-bottom:10px">' + c.addressLine1 + '</div><div style="display:flex;flex-wrap:gap:6px;margin-bottom:14px">' + services + '</div><div style="font-size:.78rem;color:var(--slate-400)">' + (c.phone || "") + '</div></div><button class="btn btn-primary btn-sm" style="width:100%;justify-content:center" onclick="bookAtClinic(\'' + c.id + '\')">Book appointment</button></div>';
+  }).join("");
+}
+
+function populateClinicSelects(){
+  var select = document.getElementById("book-clinic");
+  if (select) {
+    select.innerHTML = "";
+    if (!appState.clinics.length) {
+      select.innerHTML = '<option value="">No clinics available</option>';
+    } else {
+      appState.clinics.forEach(function(c){
+        var o = document.createElement("option");
+        o.value = c.id;
+        o.textContent = c.name + " · " + c.city;
+        select.appendChild(o);
+      });
+    }
+  }
+}
+
+function bookAtClinic(clinicId){
+  if (!appState.token) {
+    openModal("login");
+    return;
+  }
+  populateClinicSelects();
+  var select = document.getElementById("book-clinic");
+  if (select && clinicId) select.value = clinicId;
+  showPortal("owner");
+  ownerPage("appointments", null);
+  openModal("book-appt");
+}
+
+function renderRecordsPage(){
+  var body = document.getElementById("owner-records-body");
+  var empty = document.getElementById("owner-records-empty");
+  if (!body) return;
+  if (!appState.records.length) {
+    body.innerHTML = "";
+    if (empty) empty.style.display = "block";
+    return;
+  }
+  if (empty) empty.style.display = "none";
+  body.innerHTML = appState.records.map(function(r){
+    var d = new Date(r.recordedAt);
+    var date = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+    var pet = r.pet && r.pet.name ? r.pet.name : "Pet";
+    var clinic = r.clinic && r.clinic.name ? r.clinic.name : "—";
+    return '<tr><td>' + date + '</td><td><span class="badge badge-teal">' + pet + '</span></td><td><span class="badge badge-slate">' + (r.recordType || "Record") + '</span></td><td>' + (r.title || "") + (r.description ? '<br><span style="font-size:.78rem;color:var(--slate-500)">' + r.description + '</span>' : '') + '</td><td>' + clinic + '</td><td>' + vetName(r.vet) + '</td></tr>';
+  }).join("");
+}
+
+function renderVetContext(){
+  var loggedIn = appState.user && appState.user.role === "VET";
+  document.body.classList.toggle("vet-authed", loggedIn);
+
+  if (!loggedIn || !appState.vet.clinic) return;
+
+  var greeting = "Good " + (new Date().getHours() < 12 ? "morning" : "afternoon") + ", Dr. " + appState.user.lastName;
+  var title = document.getElementById("vet-dashboard-title");
+  if (title) title.textContent = greeting + " 🩺";
+
+  var sub = document.getElementById("vet-dashboard-sub");
+  if (sub) sub.textContent = appState.vet.clinic.name + " · " + appState.vet.clinic.city;
+
+  var scheduleSub = document.getElementById("vet-schedule-sub");
+  if (scheduleSub) scheduleSub.textContent = "All appointments at " + appState.vet.clinic.name;
+
+  var avatar = document.getElementById("topnav-avatar");
+  if (avatar) {
+    avatar.textContent = userInitials(appState.user);
+    avatar.style.background = "var(--blue)";
+  }
+}
+
+function renderVetStats(){
+  var s = appState.vet.stats || {};
+  var todayEl = document.getElementById("vet-stat-today");
+  var pendingEl = document.getElementById("vet-stat-pending");
+  var patientsEl = document.getElementById("vet-stat-patients");
+  if (todayEl) todayEl.textContent = String(s.todayAppointments || 0);
+  if (pendingEl) pendingEl.textContent = String(s.pendingAppointments || 0);
+  if (patientsEl) patientsEl.textContent = String(s.activePatients || 0);
+}
+
+function vetApptActionsHtml(a){
+  var actions = "";
+  if (a.status === "PENDING") {
+    actions += '<button class="btn btn-primary btn-sm" onclick="updateVetAppointment(\'' + a.id + '\',\'CONFIRMED\')">Confirm</button>';
+    actions += '<button class="btn btn-danger btn-sm" onclick="updateVetAppointment(\'' + a.id + '\',\'CANCELLED\')">Decline</button>';
+  } else if (a.status === "CONFIRMED") {
+    actions += '<button class="btn btn-primary btn-sm" onclick="updateVetAppointment(\'' + a.id + '\',\'COMPLETED\')">Complete</button>';
+  }
+  return actions;
+}
+
+function vetApptItemHtml(a){
+  var f = formatDayMonth(a.startsAt);
+  var pet = a.pet || {};
+  var owner = ownerName(a.owner);
+  var petLabel = pet.name || "Pet";
+  var breed = [pet.breed || pet.species].filter(Boolean).join(" · ");
+  return '<div class="appt-item"><div class="appt-date"><div class="appt-date-day">' + f.day + '</div><div class="appt-date-mon">' + f.mon + '</div></div><div class="appt-info"><div class="appt-title">' + (a.reason || "Consultation") + " — " + petLabel + '</div><div class="appt-meta"><span>👤 ' + owner + '</span><span>🕐 ' + f.time + '</span>' + (breed ? '<span>🐾 ' + breed + '</span>' : '') + '</div></div><div class="appt-actions" style="display:flex;gap:6px;align-items:center"><span class="badge ' + statusBadgeClass(a.status) + '">' + a.status + '</span>' + vetApptActionsHtml(a) + '</div></div>';
+}
+
+function renderVetTodayList(){
+  var list = document.getElementById("vet-today-list");
+  if (!list) return;
+  var today = appState.vet.appointments.filter(function(a){ return isToday(a.startsAt); });
+  list.innerHTML = today.length
+    ? today.map(vetApptItemHtml).join("")
+    : '<div class="empty-state" style="padding:16px"><p>No appointments scheduled for today.</p></div>';
+}
+
+function renderVetSchedule(){
+  var list = document.getElementById("vet-schedule-list");
+  if (!list) return;
+  var appts = appState.vet.appointments.slice().sort(function(a,b){ return new Date(a.startsAt) - new Date(b.startsAt); });
+  list.innerHTML = appts.length
+    ? appts.map(vetApptItemHtml).join("")
+    : '<div class="empty-state" style="padding:24px"><p>No appointments yet. They appear here when pet owners book at your clinic.</p></div>';
+}
+
+function renderVetPatients(){
+  var body = document.getElementById("vet-patients-body");
+  if (!body) return;
+  var patients = appState.vet.patients || [];
+  body.innerHTML = patients.length ? patients.map(function(row){
+    var pet = row.pet || {};
+    var owner = ownerName(row.owner);
+    var breed = [pet.breed || pet.species].filter(Boolean).join(", ");
+    var last = formatDayMonth(row.lastVisit);
+    var badge = row.lastStatus === "COMPLETED" ? "badge-green" : (row.lastStatus === "PENDING" ? "badge-amber" : "badge-teal");
+    return '<tr><td><strong>' + (pet.name || "Pet") + '</strong></td><td>' + breed + '</td><td>' + owner + '</td><td>' + last.day + " " + last.mon + '</td><td><span class="badge ' + badge + '">' + row.lastStatus + '</span></td><td><button class="btn btn-primary btn-sm" onclick="openVetNoteForPet(\'' + pet.id + '\')">+ Note</button></td></tr>';
+  }).join("") : '<tr><td colspan="6"><div class="empty-state" style="padding:24px"><p>No patients yet — they appear after owners book at your clinic.</p></div></td></tr>';
+}
+
+function populateVetNotePets(){
+  var select = document.getElementById("vet-note-pet-id");
+  if (!select) return;
+  select.innerHTML = '<option value="">Select patient...</option>';
+  (appState.vet.patients || []).forEach(function(row){
+    if (!row.pet) return;
+    var o = document.createElement("option");
+    o.value = row.pet.id;
+    o.textContent = row.pet.name + " (" + (row.pet.breed || row.pet.species || "pet") + ")";
+    select.appendChild(o);
+  });
+  var dateInput = document.getElementById("vet-note-date");
+  if (dateInput && !dateInput.value) {
+    dateInput.value = new Date().toISOString().slice(0, 10);
+  }
+}
+
+function openVetNoteForPet(petId){
+  populateVetNotePets();
+  var select = document.getElementById("vet-note-pet-id");
+  if (select && petId) select.value = petId;
+  openModal("vet-note");
+}
+
+async function refreshVetData(){
+  if (!appState.token || !appState.user || appState.user.role !== "VET") return;
+  try {
+    var me = await apiRequest("/vet/me");
+    appState.vet.clinic = me.clinic || null;
+
+    var statsData = await apiRequest("/vet/stats");
+    appState.vet.stats = statsData.stats || appState.vet.stats;
+
+    var apptData = await apiRequest("/vet/appointments");
+    appState.vet.appointments = (apptData.appointments || []).map(normalizeAppointment);
+
+    var patientData = await apiRequest("/vet/patients");
+    appState.vet.patients = patientData.patients || [];
+
+    renderVetContext();
+    renderVetStats();
+    renderVetTodayList();
+    renderVetSchedule();
+    renderVetPatients();
+    populateVetNotePets();
+  } catch (error) {
+    console.warn(error);
+    if (error.message && error.message.indexOf("No clinic linked") > -1) {
+      openModal("clinic-apply");
+    }
+  }
+}
+
+async function updateVetAppointment(id, status){
+  try {
+    await apiRequest("/vet/appointments/" + id, { method: "PATCH", body: { status: status } });
+    await refreshVetData();
+    alert(status === "CONFIRMED" ? "Appointment confirmed." : status === "COMPLETED" ? "Marked complete." : "Appointment updated.");
+  } catch (error) {
+    alert(error.message || "Could not update appointment.");
+  }
+}
+
+async function handleVetNoteSave(){
+  try {
+    var petId = document.getElementById("vet-note-pet-id").value;
+    var recordType = document.getElementById("vet-note-type").value;
+    var title = document.getElementById("vet-note-title").value.trim();
+    var description = document.getElementById("vet-note-description").value.trim();
+    var dateVal = document.getElementById("vet-note-date").value;
+    if (!petId) throw new Error("Select a patient.");
+    if (!title) throw new Error("Enter a title for this note.");
+
+    await apiRequest("/vet/records", {
+      method: "POST",
+      body: {
+        petId: petId,
+        recordType: recordType,
+        title: title,
+        description: description || undefined,
+        recordedAt: dateVal ? new Date(dateVal + "T12:00:00").toISOString() : undefined
+      }
+    });
+    closeModal("vet-note");
+    alert("Consultation note saved. The owner can see it in Medical Records.");
+  } catch (error) {
+    alert(error.message || "Could not save note.");
+  }
+}
+
+async function handleClinicApply(){
+  try {
+    var body = {
+      name: document.getElementById("apply-clinic-name").value.trim(),
+      addressLine1: document.getElementById("apply-clinic-address").value.trim(),
+      city: document.getElementById("apply-clinic-city").value.trim(),
+      postcode: document.getElementById("apply-clinic-postcode").value.trim(),
+      phone: document.getElementById("apply-clinic-phone").value.trim() || undefined,
+      email: document.getElementById("apply-clinic-email").value.trim() || undefined,
+      services: document.getElementById("apply-clinic-services").value.trim() || undefined,
+      emergency24h: document.getElementById("apply-clinic-emergency").checked
+    };
+    if (!body.name || !body.addressLine1 || !body.city || !body.postcode) {
+      throw new Error("Please fill in practice name, address, city and postcode.");
+    }
+    var data = await apiRequest("/clinics/apply", { method: "POST", body: body });
+    closeModal("clinic-apply");
+    alert(data.message || "Application submitted! We'll activate your practice soon.");
+  } catch (error) {
+    alert(error.message || "Could not submit application.");
+  }
+}
+
+function routeAfterAuth(){
+  var role = appState.user && appState.user.role;
+  if (role === "VET") {
+    showPortal("vet");
+    vetPage("v-dashboard", null);
+    refreshVetData();
+    return;
+  }
+  if (role === "ADMIN") {
+    showPortal("admin");
+    adminPage("a-dashboard", null);
+    return;
+  }
+  showPortal("owner");
+  ownerPage("dashboard", null);
+  refreshOwnerData();
+}
 
 async function apiRequest(path, options){
   const opts = options || {};
@@ -1780,7 +2115,9 @@ function setSession(token, user){
 }
 
 function setDemoVisibility(showDemo){
-  document.body.classList.toggle("owner-authed", !showDemo);
+  var isOwner = appState.user && appState.user.role === "OWNER";
+  document.body.classList.toggle("owner-authed", isOwner && !showDemo);
+  document.body.classList.toggle("vet-authed", appState.user && appState.user.role === "VET");
   document.querySelectorAll(".demo-only").forEach(function(el){
     el.style.display = showDemo ? "" : "none";
   });
@@ -2017,32 +2354,46 @@ function renderDashboardAppointments(){
 function renderTimeline(){
   var list = document.getElementById("timeline-list");
   if (!list) return;
-  const items = appState.appointments
-    .slice()
-    .sort(function(a, b){ return new Date(b.startsAt) - new Date(a.startsAt); })
-    .slice(0, 8);
+
+  var items = [];
+  appState.appointments.forEach(function(a){
+    items.push({ kind: "appointment", date: new Date(a.startsAt), data: a });
+  });
+  appState.records.forEach(function(r){
+    items.push({ kind: "record", date: new Date(r.recordedAt), data: r });
+  });
+  items.sort(function(a, b){ return b.date - a.date; });
+  items = items.slice(0, 12);
 
   if (!items.length) {
     list.innerHTML = '<div class="empty-state" style="padding:12px 0"><p>Add pets and appointments to build your timeline.</p></div>';
     return;
   }
 
-  list.innerHTML = items.map(function(a){
-    var d = new Date(a.startsAt);
-    var date = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  list.innerHTML = items.map(function(item){
+    if (item.kind === "record") {
+      var r = item.data;
+      var date = item.date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+      var petName = r.pet && r.pet.name ? r.pet.name : "Pet";
+      return '<div class="tl-item"><div class="tl-dot tl-dot-record"></div><div class="tl-date">' + date + '</div><div class="tl-title">' + (r.title || r.recordType) + " — " + petName + '</div><div class="tl-desc">' + (r.description || "") + '</div><div class="tl-meta"><span class="badge badge-blue">' + (r.recordType || "Record") + '</span></div></div>';
+    }
+    var a = item.data;
+    var date = item.date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
     var petName = a.pet && a.pet.name ? a.pet.name : "Pet";
     return '<div class="tl-item"><div class="tl-dot tl-dot-visit"></div><div class="tl-date">' + date + '</div><div class="tl-title">' + (a.reason || "Consultation") + " — " + petName + '</div><div class="tl-desc">Booked at ' + (a.clinicName || "Clinic") + ' · Status: ' + (a.status || "PENDING") + '</div><div class="tl-meta"><span class="badge badge-teal">Appointment</span></div></div>';
   }).join("");
 }
 
 async function refreshOwnerData(){
-  if (!appState.token) return;
+  if (!appState.token || !appState.user || appState.user.role !== "OWNER") return;
   try {
     const petData = await apiRequest("/pets");
     appState.pets = petData.pets || [];
     renderPetSelects();
     const apptData = await apiRequest("/appointments");
-    appState.appointments = apptData.appointments || [];
+    appState.appointments = (apptData.appointments || []).map(normalizeAppointment);
+    const recordData = await apiRequest("/records");
+    appState.records = recordData.records || [];
     renderDashboardStats();
     renderDashboardPetSummary();
     renderFamilyPetChips("family-pet-strip-dashboard");
@@ -2051,6 +2402,7 @@ async function refreshOwnerData(){
     renderTimeline();
     renderPetsGrid();
     renderAppointmentsPage();
+    renderRecordsPage();
     renderUserContext();
   } catch (error) {
     console.warn(error);
@@ -2063,16 +2415,18 @@ async function handleSignup(){
     const lastName = document.getElementById("signup-lastname").value.trim();
     const email = document.getElementById("signup-email").value.trim();
     const password = document.getElementById("signup-password").value;
+    const role = document.getElementById("signup-role").value || "OWNER";
     const data = await apiRequest("/auth/register", {
       method: "POST",
-      body: { firstName, lastName, email, password, role: "OWNER" }
+      body: { firstName, lastName, email, password, role: role }
     });
     setSession(data.token, data.user);
     closeModal("signup");
-    showPortal("owner");
-    ownerPage("dashboard", null);
-    await refreshOwnerData();
-    alert("Account created successfully.");
+    if (role === "VET") {
+      openModal("clinic-apply");
+    }
+    routeAfterAuth();
+    alert(role === "VET" ? "Vet account created. Register your practice to go live." : "Account created successfully.");
   } catch (error) {
     alert(error.message || "Could not create account.");
   }
@@ -2081,7 +2435,11 @@ async function handleSignup(){
 function signOut(){
   setSession("", null);
   sessionStorage.removeItem("petAccessPortal");
-  document.body.classList.remove("owner-authed");
+  appState.pets = [];
+  appState.appointments = [];
+  appState.records = [];
+  appState.vet = { clinic: null, appointments: [], patients: [], stats: { todayAppointments: 0, pendingAppointments: 0, activePatients: 0 } };
+  document.body.classList.remove("owner-authed", "vet-authed");
   showPortal("public");
 }
 
@@ -2095,9 +2453,7 @@ async function handleLogin(){
     });
     setSession(data.token, data.user);
     closeModal("login");
-    showPortal("owner");
-    ownerPage("dashboard", null);
-    await refreshOwnerData();
+    routeAfterAuth();
     alert("Signed in.");
   } catch (error) {
     alert(error.message || "Sign-in failed.");
@@ -2147,11 +2503,11 @@ async function handleBookAppointment(source){
     return;
   }
   try {
-    let petId, reason, clinicName, startsAt;
+    let petId, reason, clinicId, startsAt;
     if (source === "quick-book") {
       petId = document.getElementById("quick-book-pet-id").value;
       reason = document.getElementById("quick-book-reason").value.trim() || "Annual Health Check";
-      clinicName = "Sevenoaks Vets";
+      clinicId = appState.clinics.length ? appState.clinics[0].id : null;
       const d = new Date();
       d.setDate(d.getDate() + 1);
       d.setHours(10, 30, 0, 0);
@@ -2159,17 +2515,18 @@ async function handleBookAppointment(source){
     } else {
       petId = document.getElementById("book-pet-id").value;
       reason = document.getElementById("book-reason").value;
-      clinicName = document.getElementById("book-clinic").value;
+      clinicId = document.getElementById("book-clinic").value;
       const date = document.getElementById("book-date").value;
       const time = document.getElementById("book-time").value || "09:00";
       if (!date) throw new Error("Please select a date.");
+      if (!clinicId) throw new Error("Please select a clinic.");
       startsAt = new Date(date + "T" + time + ":00").toISOString();
     }
     if (!petId) throw new Error("Please add/select a pet first.");
 
     await apiRequest("/appointments", {
       method: "POST",
-      body: { petId, clinicName, startsAt, reason: reason || undefined }
+      body: { petId, clinicId, startsAt, reason: reason || undefined }
     });
     closeModal(source);
     await refreshOwnerData();
@@ -2180,6 +2537,7 @@ async function handleBookAppointment(source){
 }
 
 window.addEventListener("DOMContentLoaded", function(){
+  loadClinics();
   bootstrapSession();
 });
 
@@ -2188,11 +2546,18 @@ async function bootstrapSession(){
   try {
     const data = await apiRequest("/auth/me");
     setSession(appState.token, data.user);
-    if (sessionStorage.getItem("petAccessPortal") === "owner") {
+    var portal = sessionStorage.getItem("petAccessPortal");
+    if (portal === "owner" && data.user.role === "OWNER") {
       showPortal("owner");
       ownerPage("dashboard", null);
+      await refreshOwnerData();
+    } else if (portal === "vet" && data.user.role === "VET") {
+      showPortal("vet");
+      vetPage("v-dashboard", null);
+      await refreshVetData();
+    } else {
+      routeAfterAuth();
     }
-    await refreshOwnerData();
   } catch (_error) {
     setSession("", null);
     sessionStorage.removeItem("petAccessPortal");
@@ -2200,7 +2565,7 @@ async function bootstrapSession(){
 }
 
 function showPortal(n){
-  if (n === "owner" && !appState.user && !appState.token) {
+  if ((n === "owner" || n === "vet") && !appState.user && !appState.token) {
     openModal("login");
     return;
   }
@@ -2210,6 +2575,7 @@ function showPortal(n){
   var fab=document.getElementById('ai-fab');
   if(fab)fab.classList.remove('show');
   if(n==='owner'){document.body.classList.add('portal-owner-active');if(fab)fab.classList.add('show');refreshOwnerData();}
+  if(n==='vet'){refreshVetData();}
   var pub=n==='public';
   document.getElementById('topnav-links').style.display=pub?'flex':'none';
   document.getElementById('btn-signin').style.display=pub?'':'none';
@@ -2225,10 +2591,17 @@ function showPortal(n){
     if(!appState.user && appState.token) bootstrapSession();
     else refreshOwnerData();
   }
-  else if(n==='vet'){document.getElementById('portal-badge').textContent='VET';document.getElementById('portal-badge').className='portal-badge badge-vet';document.getElementById('topnav-avatar').textContent='HW';document.getElementById('topnav-avatar').style.background='var(--blue)';}
+  else if(n==='vet'){
+    document.getElementById('portal-badge').textContent='VET';
+    document.getElementById('portal-badge').className='portal-badge badge-vet';
+    sessionStorage.setItem('petAccessPortal','vet');
+    renderVetContext();
+    if(!appState.user && appState.token) bootstrapSession();
+    else refreshVetData();
+  }
   else if(n==='admin'){document.getElementById('portal-badge').textContent='ADMIN';document.getElementById('portal-badge').className='portal-badge badge-admin';document.getElementById('topnav-avatar').textContent='AD';document.getElementById('topnav-avatar').style.background='var(--amber)';}
   if(pub) sessionStorage.removeItem('petAccessPortal');
-  if(pub) document.body.classList.remove('owner-authed');
+  if(pub) document.body.classList.remove('owner-authed','vet-authed');
   window.scrollTo(0,0);
 }
 function showPublicPage(id){
@@ -2236,6 +2609,7 @@ function showPublicPage(id){
   document.getElementById('page-'+id).classList.add('active');
   document.querySelectorAll('#topnav-links a').forEach(a=>a.classList.remove('active'));
   var el=document.getElementById('nav-'+id);if(el)el.classList.add('active');
+  if (id === 'clinics') loadClinics();
   window.scrollTo(0,0);
 }
 function ownerPage(id,btn){
@@ -2271,6 +2645,7 @@ function vetPage(id,btn){
   var el=document.getElementById(id);if(el)el.classList.add('active');
   document.querySelectorAll('#portal-vet .sidebar-item').forEach(i=>i.classList.remove('active'));
   if(btn)btn.classList.add('active');
+  if (id === 'v-schedule' || id === 'v-patients' || id === 'v-dashboard') refreshVetData();
   window.scrollTo(0,64);
 }
 function adminPage(id,btn){
@@ -2287,7 +2662,12 @@ function switchTab(btn,tid){
   par.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   var t=document.getElementById(tid);if(t)t.classList.add('active');
 }
-function openModal(id){document.getElementById('modal-'+id).classList.add('open');document.body.style.overflow='hidden';}
+function openModal(id){
+  document.getElementById('modal-'+id).classList.add('open');
+  document.body.style.overflow='hidden';
+  if (id === 'book-appt') populateClinicSelects();
+  if (id === 'vet-note') populateVetNotePets();
+}
 function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(function(m){m.classList.remove('open');document.body.style.overflow='';});});
 document.querySelectorAll('.modal-overlay').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});

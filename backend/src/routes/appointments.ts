@@ -11,7 +11,7 @@ appointmentsRouter.get("/", asyncHandler(async (req, res) => {
   const ownerId = req.user!.id;
   const appointments = await prisma.appointment.findMany({
     where: { ownerId },
-    include: { pet: true },
+    include: { pet: true, clinic: true },
     orderBy: { startsAt: "asc" }
   });
   res.json({ appointments });
@@ -19,10 +19,13 @@ appointmentsRouter.get("/", asyncHandler(async (req, res) => {
 
 const createAppointmentSchema = z.object({
   petId: z.string().min(1),
-  clinicName: z.string().min(1),
+  clinicId: z.string().min(1).optional(),
+  clinicName: z.string().min(1).optional(),
   vetName: z.string().optional(),
   startsAt: z.string().datetime(),
   reason: z.string().optional()
+}).refine((data) => data.clinicId || data.clinicName, {
+  message: "clinicId or clinicName is required."
 });
 
 appointmentsRouter.post("/", asyncHandler(async (req, res) => {
@@ -33,7 +36,9 @@ appointmentsRouter.post("/", asyncHandler(async (req, res) => {
   }
 
   const ownerId = req.user!.id;
-  const { petId, clinicName, vetName, startsAt, reason } = parsed.data;
+  const { petId, clinicId, vetName, startsAt, reason } = parsed.data;
+  let clinicName = parsed.data.clinicName ?? "";
+  let resolvedClinicId: string | undefined = clinicId;
 
   const pet = await prisma.pet.findFirst({ where: { id: petId, ownerId } });
   if (!pet) {
@@ -41,16 +46,28 @@ appointmentsRouter.post("/", asyncHandler(async (req, res) => {
     return;
   }
 
+  if (clinicId) {
+    const clinic = await prisma.clinic.findFirst({ where: { id: clinicId, status: "ACTIVE" } });
+    if (!clinic) {
+      res.status(404).json({ error: "Clinic not found or not active." });
+      return;
+    }
+    clinicName = clinic.name;
+    resolvedClinicId = clinic.id;
+  }
+
   const appointment = await prisma.appointment.create({
     data: {
       ownerId,
       petId,
+      clinicId: resolvedClinicId,
       clinicName,
       vetName,
       startsAt: new Date(startsAt),
       reason,
       status: "PENDING"
-    }
+    },
+    include: { pet: true, clinic: true }
   });
 
   res.status(201).json({ appointment });
