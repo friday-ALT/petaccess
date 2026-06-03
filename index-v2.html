@@ -964,13 +964,13 @@ tr:hover td{background:var(--slate-50)}
     <div class="quick-action" onclick="ownerPage('records',null)"><span class="quick-action-icon">📁</span><div class="quick-action-label">Latest record</div><div class="quick-action-time">~5 sec</div></div>
     <div class="quick-action" onclick="ownerPage('emergency',null)" style="border-color:var(--red-pale);background:var(--red-pale)"><span class="quick-action-icon">🚨</span><div class="quick-action-label">Emergency</div><div class="quick-action-time" style="color:var(--red)">Urgent</div></div>
   </div>
-  <div class="alert-banner alert-amber"><span class="alert-icon">⚠️</span><div class="alert-content"><strong>Care plan action:</strong> Buddy's Kennel Cough booster overdue. <a href="#" onclick="openModal('quick-book')" style="color:inherit;font-weight:700;text-decoration:underline">Book in 1 tap →</a></div></div>
+  <div class="alert-banner alert-amber demo-only"><span class="alert-icon">⚠️</span><div class="alert-content"><strong>Care plan action:</strong> Buddy's Kennel Cough booster overdue. <a href="#" onclick="openModal('quick-book')" style="color:inherit;font-weight:700;text-decoration:underline">Book in 1 tap →</a></div></div>
   <div class="stats-row">
     <div class="stat-card"><div class="stat-card-label">My Pets</div><div class="stat-card-value" id="stat-my-pets">0</div><span class="stat-card-delta delta-neutral">Profiles complete</span></div>
     <div class="stat-card"><div class="stat-card-label">Next Appointment</div><div class="stat-card-value" id="stat-next-appt" style="font-size:1.3rem">—</div><span class="stat-card-delta delta-neutral" id="stat-next-appt-meta">No booking yet</span></div>
-    <div class="stat-card"><div class="stat-card-label">Vaccinations Due</div><div class="stat-card-value">1</div><span class="stat-card-delta delta-down">⚠ Kennel Cough</span></div>
-    <div class="stat-card"><div class="stat-card-label">Active Prescriptions</div><div class="stat-card-value">2</div><span class="stat-card-delta delta-neutral">Active medications</span></div>
-    <div class="stat-card"><div class="stat-card-label">New Messages</div><div class="stat-card-value">2</div><span class="stat-card-delta delta-up">From Dr. Walsh</span></div>
+    <div class="stat-card demo-only"><div class="stat-card-label">Vaccinations Due</div><div class="stat-card-value">1</div><span class="stat-card-delta delta-down">⚠ Kennel Cough</span></div>
+    <div class="stat-card demo-only"><div class="stat-card-label">Active Prescriptions</div><div class="stat-card-value">2</div><span class="stat-card-delta delta-neutral">Active medications</span></div>
+    <div class="stat-card demo-only"><div class="stat-card-label">New Messages</div><div class="stat-card-value">2</div><span class="stat-card-delta delta-up">From Dr. Walsh</span></div>
   </div>
   <div class="grid-2" style="gap:20px;margin-bottom:20px">
     <div class="card">
@@ -981,15 +981,13 @@ tr:hover td{background:var(--slate-50)}
     </div>
     <div class="card">
       <div class="card-title"><span class="card-title-icon">🐾</span> Pet Health Summary</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--slate-50);border-radius:var(--radius-sm)"><span style="font-size:1.8rem">🐕</span><div style="flex:1"><div style="font-weight:700;font-size:.88rem">Buddy <span style="font-weight:400;color:var(--slate-500)">· Labrador · 6y</span></div><div style="font-size:.75rem;color:var(--slate-500)">32.4 kg · Microchipped · Insured</div></div><div style="display:flex;flex-direction:column;gap:4px"><span class="badge badge-green">Healthy</span><span class="badge badge-amber">Vacc due</span></div></div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--slate-50);border-radius:var(--radius-sm)"><span style="font-size:1.8rem">🐈</span><div style="flex:1"><div style="font-weight:700;font-size:.88rem">Luna <span style="font-weight:400;color:var(--slate-500)">· Ragdoll · 3y</span></div><div style="font-size:.75rem;color:var(--slate-500)">4.8 kg · Microchipped · Insured</div></div><span class="badge badge-green">Healthy</span></div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--slate-50);border-radius:var(--radius-sm)"><span style="font-size:1.8rem">🐇</span><div style="flex:1"><div style="font-weight:700;font-size:.88rem">Pepper <span style="font-weight:400;color:var(--slate-500)">· Holland Lop · 1y</span></div><div style="font-size:.75rem;color:var(--slate-500)">1.9 kg · Not microchipped</div></div><span class="badge badge-red">Vacc overdue</span></div>
+      <div id="dashboard-pet-summary-list" style="display:flex;flex-direction:column;gap:10px">
+        <div class="empty-state" style="padding:20px 12px"><p>Add a pet to see your summary here.</p></div>
       </div>
     </div>
   </div>
   <div class="grid-2" style="gap:20px">
-    <div class="card">
+    <div class="card demo-only">
       <div class="card-title"><span class="card-title-icon">💉</span> Vaccination Status</div>
       <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate-400);margin-bottom:8px">BUDDY</div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--slate-100)"><div><div style="font-size:.85rem;font-weight:600">Distemper / Parvovirus</div><div style="font-size:.72rem;color:var(--slate-400)">Due: Mar 2026</div></div><span class="badge badge-green">Up to date</span></div>
@@ -997,7 +995,7 @@ tr:hover td{background:var(--slate-50)}
       <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--slate-400);margin:12px 0 8px">LUNA</div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><div><div style="font-size:.85rem;font-weight:600">Feline Herpesvirus + Calicivirus</div><div style="font-size:.72rem;color:var(--slate-400)">Due: Jan 2026</div></div><span class="badge badge-green">Up to date</span></div>
     </div>
-    <div class="card">
+    <div class="card demo-only">
       <div class="card-title"><span class="card-title-icon">📊</span> Buddy's Weight Trend (2025)</div>
       <div style="display:flex;align-items:flex-end;gap:8px;height:90px;margin-bottom:8px">
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="font-size:.65rem;color:var(--slate-400)">32.8</div><div style="width:100%;height:80px;background:var(--teal-pale);border-radius:3px 3px 0 0;border-top:2px solid var(--teal)"></div><div style="font-size:.65rem;color:var(--slate-400)">Jan</div></div>
@@ -1017,29 +1015,18 @@ tr:hover td{background:var(--slate-50)}
 <!-- MY PETS -->
 <div id="owner-pets" class="page">
   <div class="portal-header portal-header-row"><div><h1>My Pets</h1><p>Manage health profiles for all your pets.</p></div><button class="btn btn-primary" onclick="openModal('add-pet')">+ Add Pet</button></div>
-  <div class="pets-grid">
-    <div class="pet-card" onclick="openModal('pet-detail')"><div class="pet-card-img pet-card-img-dog">🐕</div><div class="pet-card-body"><div class="pet-card-name">Buddy</div><div class="pet-card-breed">Labrador Retriever · Male (neutered)</div><div class="pet-card-info"><div class="pet-info-item"><div class="pet-info-label">Age</div><div class="pet-info-value">6 years</div></div><div class="pet-info-item"><div class="pet-info-label">Weight</div><div class="pet-info-value">32.4 kg</div></div><div class="pet-info-item"><div class="pet-info-label">Status</div><div class="pet-info-value" style="color:var(--amber)">⚠ Vacc due</div></div><div class="pet-info-item"><div class="pet-info-label">Insurance</div><div class="pet-info-value">Petplan ✓</div></div></div><div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-secondary btn-sm" style="flex:1;justify-content:center" onclick="event.stopPropagation();ownerPage('records',null)">Records</button><button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="event.stopPropagation();openModal('book-appt')">Book</button></div></div></div>
-    <div class="pet-card"><div class="pet-card-img pet-card-img-cat">🐈</div><div class="pet-card-body"><div class="pet-card-name">Luna</div><div class="pet-card-breed">Ragdoll Cat · Female (spayed)</div><div class="pet-card-info"><div class="pet-info-item"><div class="pet-info-label">Age</div><div class="pet-info-value">3 years</div></div><div class="pet-info-item"><div class="pet-info-label">Weight</div><div class="pet-info-value">4.8 kg</div></div><div class="pet-info-item"><div class="pet-info-label">Status</div><div class="pet-info-value" style="color:var(--green)">✓ Healthy</div></div><div class="pet-info-item"><div class="pet-info-label">Insurance</div><div class="pet-info-value">Petplan ✓</div></div></div><div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-secondary btn-sm" style="flex:1;justify-content:center">Records</button><button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="openModal('book-appt')">Book</button></div></div></div>
-    <div class="pet-card"><div class="pet-card-img pet-card-img-rabbit">🐇</div><div class="pet-card-body"><div class="pet-card-name">Pepper</div><div class="pet-card-breed">Holland Lop Rabbit · Female</div><div class="pet-card-info"><div class="pet-info-item"><div class="pet-info-label">Age</div><div class="pet-info-value">1.5 years</div></div><div class="pet-info-item"><div class="pet-info-label">Weight</div><div class="pet-info-value">1.9 kg</div></div><div class="pet-info-item"><div class="pet-info-label">Status</div><div class="pet-info-value" style="color:var(--red)">⚠ Vacc overdue</div></div><div class="pet-info-item"><div class="pet-info-label">Insurance</div><div class="pet-info-value" style="color:var(--red)">Uninsured</div></div></div><div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-secondary btn-sm" style="flex:1;justify-content:center">Records</button><button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="openModal('book-appt')">Book</button></div></div></div>
-    <div class="pet-add-card" onclick="openModal('add-pet')"><span>+</span><p>Add another pet</p><div style="font-size:.78rem;color:var(--slate-400)">Dogs, cats, rabbits & more</div></div>
-  </div>
+  <div class="pets-grid" id="owner-pets-grid"></div>
 </div>
 
 <!-- APPOINTMENTS -->
 <div id="owner-appointments" class="page">
   <div class="portal-header portal-header-row"><div><h1>Appointments</h1><p>Book and manage vet appointments.</p></div><button class="btn btn-primary" onclick="openModal('book-appt')">+ Book Appointment</button></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'tab-upcoming')">Upcoming (2)</button><button class="tab" onclick="switchTab(this,'tab-past')">Past</button></div>
+  <div class="tabs"><button class="tab active" id="tab-upcoming-btn" onclick="switchTab(this,'tab-upcoming')">Upcoming (0)</button><button class="tab" onclick="switchTab(this,'tab-past')">Past</button></div>
   <div id="tab-upcoming" class="tab-panel active">
-    <div class="appt-list">
-      <div class="appt-item"><div class="appt-date"><div class="appt-date-day">4</div><div class="appt-date-mon">Jun</div></div><div class="appt-info"><div class="appt-title">Annual Health Check — Buddy</div><div class="appt-meta"><span>🏥 Sevenoaks Vets</span><span>🕐 10:30am</span><span>👩‍⚕️ Dr. Helen Walsh</span></div></div><span class="badge badge-teal">Confirmed</span><div class="appt-actions"><button class="btn btn-ghost btn-sm">Reschedule</button><button class="btn btn-danger btn-sm">Cancel</button></div></div>
-      <div class="appt-item"><div class="appt-date"><div class="appt-date-day">18</div><div class="appt-date-mon">Jun</div></div><div class="appt-info"><div class="appt-title">Vaccination Booster — Luna</div><div class="appt-meta"><span>🏥 Sevenoaks Vets</span><span>🕑 2:00pm</span><span>👨‍⚕️ Dr. Mark Reed</span></div></div><span class="badge badge-teal">Confirmed</span><div class="appt-actions"><button class="btn btn-ghost btn-sm">Reschedule</button><button class="btn btn-danger btn-sm">Cancel</button></div></div>
-    </div>
+    <div class="appt-list" id="owner-upcoming-list"></div>
   </div>
   <div id="tab-past" class="tab-panel">
-    <div class="appt-list">
-      <div class="appt-item" style="opacity:.8"><div class="appt-date" style="background:var(--slate-100)"><div class="appt-date-day" style="color:var(--slate-500)">14</div><div class="appt-date-mon" style="color:var(--slate-400)">May</div></div><div class="appt-info"><div class="appt-title">Follow-up: hip stiffness — Buddy</div><div class="appt-meta"><span>🏥 Sevenoaks Vets</span><span>👩‍⚕️ Dr. Walsh</span></div></div><span class="badge badge-slate">Completed</span><button class="btn btn-ghost btn-sm">Notes</button></div>
-      <div class="appt-item" style="opacity:.8"><div class="appt-date" style="background:var(--slate-100)"><div class="appt-date-day" style="color:var(--slate-500)">2</div><div class="appt-date-mon" style="color:var(--slate-400)">Apr</div></div><div class="appt-info"><div class="appt-title">Annual Vaccination — Luna</div><div class="appt-meta"><span>🏥 Sevenoaks Vets</span><span>👨‍⚕️ Dr. Reed</span></div></div><span class="badge badge-slate">Completed</span><button class="btn btn-ghost btn-sm">Notes</button></div>
-    </div>
+    <div class="appt-list" id="owner-past-list"></div>
   </div>
 </div>
 
@@ -1232,13 +1219,13 @@ tr:hover td{background:var(--slate-50)}
 
 <!-- FAMILY HUB -->
 <div id="owner-family" class="page">
-  <div class="portal-header portal-header-row"><div><h1>Family Hub</h1><p>Mitchell household · unified health for 3 pets</p></div><button class="btn btn-secondary btn-sm">+ Invite member</button></div>
-  <div class="grid-3" style="margin-bottom:20px">
+  <div class="portal-header portal-header-row"><div><h1>Family Hub</h1><p id="family-hub-subtitle">Your household · unified pet health</p></div><button class="btn btn-secondary btn-sm">+ Invite member</button></div>
+  <div class="grid-3 demo-only" style="margin-bottom:20px">
     <div class="stat-card"><div class="stat-card-label">Household health</div><div class="stat-card-value" style="font-size:1.4rem">88</div><span class="stat-card-delta delta-neutral">Avg score</span></div>
     <div class="stat-card"><div class="stat-card-label">Shared reminders</div><div class="stat-card-value">4</div><span class="stat-card-delta delta-down">2 due this week</span></div>
     <div class="stat-card"><div class="stat-card-label">Family members</div><div class="stat-card-value">2</div><span class="stat-card-delta delta-neutral">Sarah + James</span></div>
   </div>
-  <div class="card"><div class="card-title">Access permissions</div>
+  <div class="card demo-only"><div class="card-title">Access permissions</div>
     <div class="user-row"><div class="avatar-md">SM</div><div style="flex:1"><div style="font-weight:700;font-size:.88rem">Sarah Mitchell</div><div style="font-size:.75rem;color:var(--slate-500)">Primary owner · full access</div></div><span class="badge badge-teal">Admin</span></div>
     <div class="user-row"><div class="avatar-md" style="background:var(--slate-600)">JM</div><div style="flex:1"><div style="font-weight:700;font-size:.88rem">James Mitchell</div><div style="font-size:.75rem;color:var(--slate-500)">Can book & view records · no insurance</div></div><span class="badge badge-slate">Member</span></div>
   </div>
@@ -1768,6 +1755,18 @@ async function apiRequest(path, options){
   return payload;
 }
 
+function userInitials(user){
+  if (!user) return "?";
+  var a = (user.firstName || "").charAt(0).toUpperCase();
+  var b = (user.lastName || "").charAt(0).toUpperCase();
+  return (a + b) || "?";
+}
+
+function userDisplayName(user){
+  if (!user) return "Guest";
+  return [user.firstName, user.lastName].filter(Boolean).join(" ");
+}
+
 function setSession(token, user){
   appState.token = token || "";
   appState.user = user || null;
@@ -1776,10 +1775,98 @@ function setSession(token, user){
   renderUserContext();
 }
 
+function setDemoVisibility(showDemo){
+  document.querySelectorAll(".demo-only").forEach(function(el){
+    el.style.display = showDemo ? "" : "none";
+  });
+}
+
 function renderUserContext(){
-  if (!appState.user) return;
+  var loggedIn = !!appState.user;
+  setDemoVisibility(!loggedIn);
+
+  var avatar = document.getElementById("topnav-avatar");
+  if (avatar) {
+    if (loggedIn) {
+      avatar.textContent = userInitials(appState.user);
+      avatar.title = userDisplayName(appState.user);
+      avatar.style.background = "var(--teal)";
+    }
+  }
+
+  if (!loggedIn) return;
+
   var title = document.querySelector("#owner-dashboard .portal-header h1");
-  if (title) title.textContent = "Good " + (new Date().getHours() < 12 ? "morning" : "afternoon") + ", " + appState.user.firstName;
+  if (title) {
+    title.textContent = "Good " + (new Date().getHours() < 12 ? "morning" : "afternoon") + ", " + appState.user.firstName;
+  }
+
+  var familySub = document.getElementById("family-hub-subtitle");
+  if (familySub) {
+    familySub.textContent = loggedIn
+      ? userDisplayName(appState.user) + " · " + appState.pets.length + " pet(s) on your account"
+      : "Your household · unified pet health";
+  }
+}
+
+function renderDashboardPetSummary(){
+  var list = document.getElementById("dashboard-pet-summary-list");
+  if (!list) return;
+  if (!appState.pets.length) {
+    list.innerHTML = '<div class="empty-state" style="padding:20px 12px"><p>Add a pet to see your summary here.</p></div>';
+    return;
+  }
+  list.innerHTML = appState.pets.map(function(p){
+    var meta = [p.breed || p.species, p.sex].filter(Boolean).join(" · ");
+    var weight = p.weightKg ? p.weightKg + " kg" : "Weight not set";
+    return '<div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--slate-50);border-radius:var(--radius-sm)"><span style="font-size:1.8rem">' + petEmoji(p.species) + '</span><div style="flex:1"><div style="font-weight:700;font-size:.88rem">' + p.name + (meta ? ' <span style="font-weight:400;color:var(--slate-500)">· ' + meta + '</span>' : '') + '</div><div style="font-size:.75rem;color:var(--slate-500)">' + weight + '</div></div><span class="badge badge-green">On profile</span></div>';
+  }).join("");
+}
+
+function renderPetsGrid(){
+  var grid = document.getElementById("owner-pets-grid");
+  if (!grid) return;
+  var cards = appState.pets.map(function(p){
+    var breedLine = [p.breed || p.species, p.sex].filter(Boolean).join(" · ");
+    var weight = p.weightKg ? p.weightKg + " kg" : "—";
+    return '<div class="pet-card"><div class="pet-card-img">' + petEmoji(p.species) + '</div><div class="pet-card-body"><div class="pet-card-name">' + p.name + '</div><div class="pet-card-breed">' + breedLine + '</div><div class="pet-card-info"><div class="pet-info-item"><div class="pet-info-label">Species</div><div class="pet-info-value">' + (p.species || "—") + '</div></div><div class="pet-info-item"><div class="pet-info-label">Weight</div><div class="pet-info-value">' + weight + '</div></div><div class="pet-info-item"><div class="pet-info-label">Allergies</div><div class="pet-info-value">' + (p.allergies || "None listed") + '</div></div><div class="pet-info-item"><div class="pet-info-label">Status</div><div class="pet-info-value" style="color:var(--green)">✓ Saved</div></div></div><div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="openModal(\'book-appt\')">Book</button></div></div></div>';
+  }).join("");
+  cards += '<div class="pet-add-card" onclick="openModal(\'add-pet\')"><span>+</span><p>Add another pet</p><div style="font-size:.78rem;color:var(--slate-400)">Dogs, cats, rabbits & more</div></div>';
+  grid.innerHTML = cards;
+}
+
+function appointmentItemHtml(a, past){
+  var f = formatDayMonth(a.startsAt);
+  var petName = a.pet && a.pet.name ? a.pet.name : "Pet";
+  var opacity = past ? ' style="opacity:.8"' : "";
+  var dateStyle = past ? ' style="background:var(--slate-100)"' : "";
+  var dayStyle = past ? ' style="color:var(--slate-500)"' : "";
+  var monStyle = past ? ' style="color:var(--slate-400)"' : "";
+  var badge = past ? "badge-slate" : (a.status === "CONFIRMED" ? "badge-teal" : "badge-amber");
+  return '<div class="appt-item"' + opacity + '><div class="appt-date"' + dateStyle + '><div class="appt-date-day"' + dayStyle + '>' + f.day + '</div><div class="appt-date-mon"' + monStyle + '>' + f.mon + '</div></div><div class="appt-info"><div class="appt-title">' + (a.reason || "Consultation") + " — " + petName + '</div><div class="appt-meta"><span>🏥 ' + (a.clinicName || "Clinic") + '</span><span>🕐 ' + f.time + '</span></div></div><span class="badge ' + badge + '">' + (a.status || "PENDING") + '</span></div>';
+}
+
+function renderAppointmentsPage(){
+  var now = Date.now();
+  var upcoming = appState.appointments.filter(function(a){ return new Date(a.startsAt).getTime() >= now; }).sort(function(a,b){ return new Date(a.startsAt) - new Date(b.startsAt); });
+  var past = appState.appointments.filter(function(a){ return new Date(a.startsAt).getTime() < now; }).sort(function(a,b){ return new Date(b.startsAt) - new Date(a.startsAt); });
+
+  var tabBtn = document.getElementById("tab-upcoming-btn");
+  if (tabBtn) tabBtn.textContent = "Upcoming (" + upcoming.length + ")";
+
+  var upList = document.getElementById("owner-upcoming-list");
+  if (upList) {
+    upList.innerHTML = upcoming.length
+      ? upcoming.map(function(a){ return appointmentItemHtml(a, false); }).join("")
+      : '<div class="empty-state" style="padding:20px 12px"><p>No upcoming appointments.</p></div>';
+  }
+
+  var pastList = document.getElementById("owner-past-list");
+  if (pastList) {
+    pastList.innerHTML = past.length
+      ? past.map(function(a){ return appointmentItemHtml(a, true); }).join("")
+      : '<div class="empty-state" style="padding:20px 12px"><p>No past appointments yet.</p></div>';
+  }
 }
 
 function renderPetSelects(){
@@ -1919,10 +2006,13 @@ async function refreshOwnerData(){
     const apptData = await apiRequest("/appointments");
     appState.appointments = apptData.appointments || [];
     renderDashboardStats();
+    renderDashboardPetSummary();
     renderFamilyPetChips("family-pet-strip-dashboard");
     renderFamilyPetChips("family-pet-strip-timeline");
     renderDashboardAppointments();
     renderTimeline();
+    renderPetsGrid();
+    renderAppointmentsPage();
   } catch (error) {
     console.warn(error);
   }
@@ -2044,8 +2134,24 @@ async function handleBookAppointment(source){
 }
 
 window.addEventListener("DOMContentLoaded", function(){
-  if (appState.token) refreshOwnerData();
+  bootstrapSession();
 });
+
+async function bootstrapSession(){
+  if (!appState.token) return;
+  try {
+    const data = await apiRequest("/auth/me");
+    setSession(appState.token, data.user);
+    if (sessionStorage.getItem("petAccessPortal") === "owner") {
+      showPortal("owner");
+      ownerPage("dashboard", null);
+    }
+    await refreshOwnerData();
+  } catch (_error) {
+    setSession("", null);
+    sessionStorage.removeItem("petAccessPortal");
+  }
+}
 
 function showPortal(n){
   document.querySelectorAll('[id^=portal-]').forEach(p=>p.style.display='none');
@@ -2061,9 +2167,16 @@ function showPortal(n){
   document.getElementById('btn-exit').style.display=pub?'none':'';
   document.getElementById('portal-badge').style.display=pub?'none':'';
   document.getElementById('topnav-avatar').style.display=pub?'none':'';
-  if(n==='owner'){document.getElementById('portal-badge').textContent='OWNER';document.getElementById('portal-badge').className='portal-badge badge-owner';document.getElementById('topnav-avatar').textContent='SM';document.getElementById('topnav-avatar').style.background='var(--teal)';}
+  if(n==='owner'){
+    document.getElementById('portal-badge').textContent='OWNER';
+    document.getElementById('portal-badge').className='portal-badge badge-owner';
+    sessionStorage.setItem('petAccessPortal','owner');
+    renderUserContext();
+    if(!appState.user && appState.token) bootstrapSession();
+  }
   else if(n==='vet'){document.getElementById('portal-badge').textContent='VET';document.getElementById('portal-badge').className='portal-badge badge-vet';document.getElementById('topnav-avatar').textContent='HW';document.getElementById('topnav-avatar').style.background='var(--blue)';}
   else if(n==='admin'){document.getElementById('portal-badge').textContent='ADMIN';document.getElementById('portal-badge').className='portal-badge badge-admin';document.getElementById('topnav-avatar').textContent='AD';document.getElementById('topnav-avatar').style.background='var(--amber)';}
+  if(pub) sessionStorage.removeItem('petAccessPortal');
   window.scrollTo(0,0);
 }
 function showPublicPage(id){
@@ -2133,7 +2246,7 @@ function sendMsg(portal){
   if(!input||!input.value.trim())return;
   var text=input.value.trim();input.value='';
   var d=document.createElement('div');d.className='message sent';
-  var bg=portal==='owner'?'#7C3AED':'var(--blue)';var init=portal==='owner'?'SM':'HW';
+  var bg=portal==='owner'?'#7C3AED':'var(--blue)';var init=portal==='owner'?userInitials(appState.user):'HW';
   d.innerHTML='<div class="message-avatar" style="background:'+bg+'">'+init+'</div><div><div class="message-bubble">'+text+'</div><div class="message-time">Just now</div></div>';
   msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
   setTimeout(function(){

@@ -4,6 +4,7 @@ import { prisma } from "../db.js";
 import { signToken } from "../lib/jwt.js";
 import { hashPassword, verifyPassword } from "../lib/password.js";
 import { asyncHandler } from "../middleware/async-handler.js";
+import { requireAuth } from "../middleware/auth.js";
 
 export const authRouter = Router();
 
@@ -77,4 +78,18 @@ authRouter.post("/login", asyncHandler(async (req, res) => {
       role: user.role
     }
   });
+}));
+
+authRouter.get("/me", requireAuth, asyncHandler(async (req, res) => {
+  const user = await prisma.user.findUnique({
+    where: { id: req.user!.id },
+    select: { id: true, email: true, firstName: true, lastName: true, role: true }
+  });
+
+  if (!user) {
+    res.status(404).json({ error: "User not found." });
+    return;
+  }
+
+  res.json({ user });
 }));
