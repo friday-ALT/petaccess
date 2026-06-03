@@ -9,6 +9,8 @@ const server = app.listen(env.PORT, host, () => {
       ? `https://${env.RAILWAY_PUBLIC_DOMAIN}`
       : `http://localhost:${env.PORT}`;
   console.log(`Pet Access running on ${url}`);
+  console.log(`NODE_ENV=${env.NODE_ENV} PORT=${env.PORT}`);
+  console.log(`Health: ${url.replace(/\/$/, "")}/api/health`);
 });
 
 async function shutdown(): Promise<void> {

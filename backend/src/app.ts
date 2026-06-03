@@ -51,6 +51,14 @@ app.use(
 );
 app.use(express.json({ limit: "1mb" }));
 
+app.get("/api/health", (_req, res) => {
+  res.json({
+    ok: true,
+    service: "pet-access-backend",
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use("/api", apiRouter);
 
 if (env.NODE_ENV === "production") {
