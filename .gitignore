@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment & secrets
+.env
+backend/.env
+*.pem
+
+# Build output
+backend/dist/
+backend/public/index-v2.html
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.cursor/
+
+# Local DB / tooling
+*.db
+*.sqlite
