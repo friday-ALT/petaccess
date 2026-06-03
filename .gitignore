@@ -9,7 +9,6 @@ backend/.env
 
 # Build output
 backend/dist/
-backend/public/index-v2.html
 
 # OS / editor
 .DS_Store

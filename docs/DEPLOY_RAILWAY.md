@@ -40,7 +40,7 @@ Sign in with GitHub when prompted (browser or token).
 3. Authorize Railway → select your `pet-access` repo
 4. When the service is created, open **Settings**:
    - **Root Directory**: `backend`
-   - **Watch Paths** (optional): `backend/**`, `index-v2.html`
+   - **Watch Paths** (optional): `backend/**`
 
 Railway reads `backend/railway.toml` for build/start commands.
 
@@ -95,7 +95,7 @@ Data is stored in Railway PostgreSQL.
 
 | Issue | Fix |
 |-------|-----|
-| Build fails on `index-v2.html` | Ensure repo root contains `index-v2.html` (not only inside `backend/`) |
+| Build fails on `index-v2.html` | Ensure `backend/public/index-v2.html` exists (served in production) |
 | `P1001` / database errors | Confirm Postgres is linked and `DATABASE_URL` is referenced on the web service |
 | `Invalid environment variables` | `JWT_SECRET` must be at least 16 characters |
 | Blank page | Check deploy logs; confirm `NODE_ENV=production` |

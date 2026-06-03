@@ -6,7 +6,7 @@ Smart pet healthcare prototype with a production-ready Node API and PostgreSQL d
 
 | Path | Description |
 |------|-------------|
-| `index-v2.html` | Main product UI (owner portal, marketing, API wiring) |
+| `index-v2.html` | Main product UI (also copied to `backend/public/` for Railway) |
 | `backend/` | Express + Prisma + JWT API |
 | `docs/PET_ACCESS_V2_STRATEGY.md` | Product strategy |
 | `docs/DEPLOY_RAILWAY.md` | **Deploy to Railway + GitHub** |
