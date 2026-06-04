@@ -112,6 +112,28 @@ button{cursor:pointer;font-family:var(--font-body)}
 .hero-actions .btn-ghost{color:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.3);padding:12px 24px;border-radius:var(--radius-sm);font-size:.95rem}
 .hero-actions .btn-ghost:hover{background:rgba(255,255,255,.1)}
 .hero-card{position:relative;z-index:2;max-width:860px;margin:0 auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:24px;backdrop-filter:blur(12px)}
+
+/* ─── CINEMATIC SCROLL (Three.js + GSAP) ─── */
+.cinematic-scroll-wrapper{position:relative;height:500vh;width:100%;background:#050a14;z-index:1}
+.cinematic-scroll-sticky{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#050a14}
+.cinematic-canvas{display:block;width:100%;height:100%;touch-action:none}
+.cinematic-vignette{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.3;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.75) 100%);transition:opacity .3s}
+.cinematic-fade-overlay{position:absolute;inset:0;pointer-events:none;z-index:3;opacity:0;background:#000;transition:opacity .15s}
+.cinematic-ui{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;justify-content:flex-end;padding:48px 32px 56px;pointer-events:none}
+.cinematic-act-label{max-width:520px;margin-bottom:auto;padding-top:100px;opacity:1;transition:opacity .4s}
+.cinematic-act-title{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.2rem);color:rgba(255,255,255,.95);font-weight:700;margin-bottom:8px;letter-spacing:.02em}
+.cinematic-act-sub{font-size:.95rem;color:rgba(204,251,241,.75);line-height:1.5}
+.cinematic-cta{pointer-events:auto;text-align:center;max-width:640px;margin:0 auto;opacity:0;transform:translateY(24px)}
+.cinematic-cta h2{font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.4rem);color:var(--white);margin-bottom:12px}
+.cinematic-cta p{color:rgba(255,255,255,.75);font-size:1rem;margin-bottom:24px}
+.cinematic-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cinematic-cta .btn-primary{background:var(--teal-light);border:none}
+.cinematic-cta .btn-primary:hover{background:var(--teal)}
+@media(max-width:767px){
+  .cinematic-scroll-wrapper{height:400vh}
+  .cinematic-ui{padding:32px 20px 40px}
+  .cinematic-act-label{padding-top:80px}
+}
 .hero-card-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1)}
 .hero-card-dot{width:10px;height:10px;border-radius:50%}
 .hcd-red{background:#EF4444}
@@ -681,6 +703,29 @@ body.vet-authed .vet-live-note { display: block !important; }
     </div>
   </div>
 </div>
+
+<!-- Cinematic scroll journey (Three.js + GSAP) -->
+<section id="cinematic-scroll" class="cinematic-scroll-wrapper" aria-label="Pet Access cinematic experience">
+  <div class="cinematic-scroll-sticky">
+    <canvas class="cinematic-canvas" aria-hidden="true"></canvas>
+    <div class="cinematic-vignette" aria-hidden="true"></div>
+    <div class="cinematic-fade-overlay" aria-hidden="true"></div>
+    <div class="cinematic-ui">
+      <div class="cinematic-act-label">
+        <div class="cinematic-act-title">Act I — Arrival</div>
+        <div class="cinematic-act-sub">Enter the depth of your pet's health world</div>
+      </div>
+      <div class="cinematic-cta">
+        <h2>One continuous world for every stage of life</h2>
+        <p>Timeline, preventive care, vet-connected records — scroll through the journey, then start yours.</p>
+        <div class="cinematic-cta-actions">
+          <button type="button" class="btn btn-primary btn-lg" onclick="openModal('signup')">Create free account →</button>
+          <button type="button" class="btn btn-ghost btn-lg" style="color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.35)" onclick="showPublicPage('clinics')">Find a clinic</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="trust-strip">
   <span>🔒 <strong>AES-256</strong> encrypted records</span>
@@ -2610,6 +2655,9 @@ function showPublicPage(id){
   document.querySelectorAll('#topnav-links a').forEach(a=>a.classList.remove('active'));
   var el=document.getElementById('nav-'+id);if(el)el.classList.add('active');
   if (id === 'clinics') loadClinics();
+  if (id === 'home' && window.petAccessCinematic) {
+    requestAnimationFrame(function(){ window.petAccessCinematic.refresh(); });
+  }
   window.scrollTo(0,0);
 }
 function ownerPage(id,btn){
@@ -2690,4 +2738,5 @@ function sendMsg(portal){
   },1200);
 }
 </script>
+<script type="module" src="/js/cinematic-scroll.js"></script>
 </body></html>
