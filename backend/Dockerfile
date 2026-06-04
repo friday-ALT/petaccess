@@ -20,7 +20,7 @@ COPY prisma ./prisma/
 RUN npm ci --omit=dev && npx prisma generate
 
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/public ./public
+COPY public ./public/
 
 EXPOSE 8080
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/server.js"]
